@@ -1,8 +1,9 @@
 from tkinter import *
 from tkinter import messagebox
-
+from math import sqrt
 
 root = Tk()
+root.resizable(width=False, height=False)
 
 entry = Entry(root, width=35, borderwidth=5, text="0")
 entry.grid(row=1, column=0, columnspan=3, padx=10, pady=10)
@@ -25,6 +26,8 @@ def button_addn():
         f_num = float(first_number) 
         tekst.set(f'{f_num} +')
         entry.delete(0, END)
+    if first_number.startswith == '(':
+        print("yeee")
     else:
         entry.delete(0, END)
 
@@ -34,7 +37,7 @@ def button_sub():
     if first_number != '':
         global math
         global f_num
-        math="addition"
+        math="substract"
         f_num = float(first_number) 
         tekst.set(f'{f_num} -')
         entry.delete(0, END)
@@ -46,7 +49,7 @@ def button_multi():
     if first_number != '':
         global math
         global f_num
-        math="addition"
+        math="multiply"
         f_num = float(first_number) 
         tekst.set(f'{f_num} *')
         entry.delete(0, END)
@@ -58,9 +61,18 @@ def button_div():
     if first_number != '':
         global math
         global f_num
-        math="addition"
+        math="divide"
         f_num = float(first_number) 
         tekst.set(f'{f_num} :')
+        entry.delete(0, END)
+    else:
+        entry.delete(0, END)
+
+def button_sqrtadd():
+    first_number = entry.get()
+    if first_number != '':
+        f_num = float(first_number) 
+        tekst.set(f'√{f_num} = {sqrt(f_num)}')
         entry.delete(0, END)
     else:
         entry.delete(0, END)
@@ -87,6 +99,7 @@ def button_equal():
         messagebox.showwarning("Daj jakąś liczbe", "Nie ma liczby")
 
 def button_cln():
+    tekst.set('')
     entry.delete(0, END)
 
 
@@ -104,10 +117,12 @@ button_dot = Button(root, text='.', padx=40, pady=20, command=lambda: button_cli
 button_add = Button(root, text="+", padx=39, pady=20, command=button_addn)
 button_equali = Button(root, text="=", padx=39, pady=20, command=button_equal)
 button_clear = Button(root, text="Clear", padx=39, pady=20, command=button_cln)
+button_bracketOne = Button(root, text="(", padx=39, pady=20, command=lambda: button_click('('))
 
 button_substract = Button(root, text="-", padx=41, pady=20, command=button_sub)
 button_multiply = Button(root, text="*", padx=40, pady=20, command=button_multi)
 button_divide = Button(root, text="/", padx=41, pady=20, command=button_div)
+button_sqrt = Button(root, text="√", padx=40, pady=20, command=button_sqrtadd)
 
 button_1.grid(row=2, column=0)
 button_2.grid(row=2, column=1)
@@ -126,11 +141,12 @@ button_dot.grid(row=8, column=0)
 button_add.grid(row=6, column=0)
 button_clear.grid(row=5, column=1, columnspan=2)
 button_equali.grid(row=6, column=1, columnspan=2)
+button_bracketOne.grid(row=9, column=0)
 
 button_substract.grid(row=7, column=0)
 button_multiply.grid(row=7, column=1)
 button_divide.grid(row=7, column=2)
-
+button_sqrt.grid(row=8, column=1)
 
 
 root.mainloop()
